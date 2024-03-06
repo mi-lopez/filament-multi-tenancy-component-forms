@@ -2,6 +2,8 @@
 
 namespace App\Filament\App\Resources\PatientResource\RelationManagers;
 
+use App\Models\Company;
+use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -48,7 +50,10 @@ class TreatmentsRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                Tables\Actions\CreateAction::make()->mutateFormDataUsing(fn (array $data): array => [
+                    ...$data,
+                    'company_id' => Filament::getTenant()->id,
+                ]),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

@@ -5,6 +5,7 @@ namespace App\Filament\App\Resources;
 use App\Filament\App\Resources\PatientResource\Pages;
 use App\Filament\App\Resources\PatientResource\RelationManagers;
 use App\Models\Patient;
+use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -54,6 +55,8 @@ class PatientResource extends Resource
                             ->tel()
                             ->required(),
                     ])
+                    ->createOptionUsing(fn ($data) => Filament::getTenant()->owners()->create($data)->id)
+
                     ->required()
             ]);
     }
