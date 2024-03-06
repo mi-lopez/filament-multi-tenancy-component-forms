@@ -18,11 +18,6 @@ class Company extends Model
         return $this->belongsToMany(User::class);
     }
 
-    public function items(): HasMany
-    {
-        return $this->hasMany(Item::class);
-    }
-
     public function owners(): HasMany
     {
         return $this->hasMany(Owner::class);
